@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<title>Ray Calcolatrice</title>
+  <head>
+	Ray Calcolatrice
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Calcolatrice</title>
+    <meta content="Luigi" name="author">
+    <meta content="BlueGriffon wysiwyg editor" name="generator">
+    <style>
+    td {  
+      width: 25%;  
+      text-align: center;
+    }
+    
+    .Cl_Key_Num {  
+      background-color: #c9c9c9;
+    }
+    
+    .Cl_Key_Ope {  
+      background-color: #ffff00;  
+      color: #0000ff;
+    }
+    
+    .Cl_Key_Alt {  
+      background-color: #ffffcc;
+    }
+    
+    #Id_Display {  
+      font-weight: bold;
+      background-color: #99ffff;"
+    }
+
+.Cl_Key_Num:hover {  
+  background-color: #a9a9a9;
+}
+
+.Cl_Key_Ope:hover {  
+  background-color: #cccc00;  
+  color: #0000ff;
+}
+
+.Cl_Key_Alt:hover {  
+  background-color: #ccccaa;
+}
+
+  </style>
+  </head>
+  <body>
+    <table style="width: 100%" border="1">
+      <tbody>
+        <tr>
+          <td id="Id_Display" colspan="4" rowspan="1"><br>
+          </td>
+        </tr>
+        <tr>
+          <td id="Id_x0"><br>
+          </td>
+          <td class="Cl_Key_Ope" id="Id_Div" onclick="U_Div()">/</td>
+          <td class="Cl_Key_Ope" id="Id_Per" onclick="U_Per()">*</td>
+          <td class="Cl_Key_Ope" id="Id_Meno" onclick="U_Meno()">-</td>
+        </tr>
+        <tr>
+          <td class="Cl_Key_Num" id="Id_7" onclick="U_Num(7)">7</td>
+          <td class="Cl_Key_Num" id="Id_8" onclick="U_Num(8)">8</td>
+          <td class="Cl_Key_Num" id="Id_9" onclick="U_Num(9)">9</td>
+          <td class="Cl_Key_Ope" id="Id_Piu" onclick="U_Piu()">+</td>
+        </tr>
+        <tr>
+          <td class="Cl_Key_Num" id="Id_4" onclick="U_Num(4)">4</td>
+          <td class="Cl_Key_Num" id="Id_5" onclick="U_Num(5)">5</td>
+          <td class="Cl_Key_Num" id="Id_6" onclick="U_Num(6)">6</td>
+          <td class="Cl_Key_Ope" id="Id_Uguale" onclick="U_Uguale()">=</td>
+        </tr>
+        <tr>
+          <td class="Cl_Key_Num" id="Id_1" onclick="U_Num(1)">1</td>
+          <td class="Cl_Key_Num" id="Id_2" onclick="U_Num(2)">2</td>
+          <td class="Cl_Key_Num" id="Id_3" onclick="U_Num(3)">3</td>
+          <td class="Cl_Key_Alt" id="Id_Cancella" onclick="U_Cancella()">Ch</td>
+        </tr>
+        <tr>
+          <td class="Cl_Key_Alt" id="Id_Reset" onclick="U_Reset()">C<br>
+          </td>
+          <td class="Cl_Key_Num" id="Id_0" onclick="U_Num(0)">0</td>
+          <td class="Cl_Key_Alt" id="Id_Punto">.</td>
+          <td class="Cl_Key_Alt" id="Id_x2" onclick="U_ReOpen()">ReOpen<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+    </p>
+    <script>
+
+var S_szNmCur = "calc13.html";
+var S_iDisplay = 0;
+var S_iOpe1 = 0;
+var S_iOpe0 = 0;
+var S_fCalc = false;
+var S_chOper = " ";
+
+function U_Reset()
+{
+  S_iDisplay = 0;
+  S_iOpe1 = 0;
+  S_iOpe0 = 0;
+  S_fCalc = false;
+  S_chOper = " ";
+
+  U_Mostra();  
+} /* U_Reset */
+
+function U_Num(P_i)
+{
+  S_iOpe1 = S_iOpe1 * 10 + P_i;
+  S_iDisplay = S_iOpe1;
+  
+  U_Mostra();
+} /* U_Num */
+
+function U_Mostra()
+{ 
+  var Elem0 = document.getElementById("Id_Display");
+  Elem0.innerHTML = S_iDisplay;
+} /* U_Mostra */
+
+function U_Cancella()
+{ 
+  var iTmp = S_iOpe1 / 10;
+  S_iOpe1 = Math.floor(iTmp);
+  S_iDisplay = S_iOpe1;
+  S_chOper = " ";
+  
+  U_Mostra();
+} /* U_Cancella */
+
+function U_Piu()
+{ 
+
+  S_iOpe0 = S_iOpe1;
+  S_iOpe1 = 0;
+  S_iDisplay = S_iOpe1;
+
+  S_fCalc = true;
+  S_chOper = "+";
+  U_Mostra();
+} /* U_Piu */
+
+function U_Meno()
+{ 
+
+  S_iOpe0 = S_iOpe1;
+  S_iOpe1 = 0;
+  S_iDisplay = S_iOpe1;
+
+  S_fCalc = true;
+  S_chOper = "-";
+  U_Mostra();
+} /* U_Meno */
+
+function U_Per()
+{ 
+
+  S_iOpe0 = S_iOpe1;
+  S_iOpe1 = 0;
+  S_iDisplay = S_iOpe1;
+
+  S_fCalc = true;
+  S_chOper = "*";
+  U_Mostra();
+} /* U_Per */
+
+function U_Div()
+{ 
+
+  S_iOpe0 = S_iOpe1;
+  S_iOpe1 = 0;
+  S_iDisplay = S_iOpe1;
+
+  S_fCalc = true;
+  S_chOper = "/";
+  U_Mostra();
+} /* U_Div */
+
+function U_Uguale()
+{
+  if (S_chOper == "+") {
+     S_iOpe1 = S_iOpe0 + S_iOpe1;
+  } /* if */
+  if (S_chOper == "-") {
+     S_iOpe1 = S_iOpe0 - S_iOpe1;    /* "S_iOpe1 - S_iOpe0" */
+  } /* if */
+  if (S_chOper == "*") {
+     S_iOpe1 = S_iOpe0 * S_iOpe1;
+  } /* if */
+  if (S_chOper == "/") {
+     S_iOpe1 = S_iOpe0 / S_iOpe1;    /* Cosa succederebbe se S_iOpe0 fosse uguale a zero? */
+  } /* if */
+  
+  S_iDisplay = S_iOpe1;
+  U_Mostra();
+} /* U_Uguale */
+
+/*-----U_ReOpen --------------------------------------------------------
+*
+*/
+function U_ReOpen()
+{
+window.open(S_szNmCur, "_blank", "titlebar=no,toolbar=no,scrollbars=no,menubar=no,status=no,location=no,resizable=yes,top=500,left=500,width=400,height=400");
+
+  var iTmp = 0;
+} /* U_ReOpen */
+
+</script>
+  <script src="../res/rlcd.js"></script>
+<script src="file:///I:/BIN/lcd20.js"></script></body>
+</html>
